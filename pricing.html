@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing — Stryde</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #0f0f14;
+      color: #e0e0e8;
+      line-height: 1.7;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a0a04 0%, #0d1a0a 100%);
+      border-bottom: 1px solid rgba(255, 87, 34, 0.2);
+      padding: 40px 24px 32px;
+      text-align: center;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #FF5722, #E53935);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 900;
+      color: white;
+      letter-spacing: -1px;
+    }
+
+    .logo-name {
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FF8A65, #FF5722);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header h1 {
+      font-size: 36px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.55);
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      padding: 14px 24px;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 13px;
+    }
+
+    nav a {
+      color: rgba(255,255,255,0.5);
+      transition: color 0.2s;
+    }
+    nav a:hover, nav a.active { color: #FF8A65; }
+
+    /* ── Container ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    /* ── Trial badge ── */
+    .trial-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 214, 0, 0.1);
+      border: 1px solid rgba(255, 214, 0, 0.3);
+      border-radius: 30px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #FFD600;
+      letter-spacing: 0.5px;
+      margin-bottom: 40px;
+    }
+
+    .trial-badge-wrap {
+      text-align: center;
+    }
+
+    /* ── Plan cards ── */
+    .plans {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .plans { grid-template-columns: 1fr; }
+    }
+
+    .plan-card {
+      background: #17171f;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 28px 24px;
+      position: relative;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .plan-card:hover {
+      border-color: rgba(255,87,34,0.4);
+      transform: translateY(-2px);
+    }
+
+    .plan-card.recommended {
+      border: 2px solid #FF5722;
+      background: linear-gradient(160deg, #1a0d08, #17171f);
+    }
+
+    .recommended-tag {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #FF5722, #E53935);
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .plan-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .plan-price {
+      font-size: 42px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .plan-price sup {
+      font-size: 20px;
+      font-weight: 700;
+      vertical-align: super;
+      line-height: 0;
+    }
+
+    .plan-period {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 14px;
+    }
+
+    .plan-per-month {
+      display: inline-block;
+      background: rgba(255,87,34,0.12);
+      color: #FF8A65;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 8px;
+      margin-bottom: 4px;
+    }
+
+    .plan-save {
+      display: inline-block;
+      background: rgba(255, 214, 0, 0.12);
+      color: #FFD600;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 8px;
+      margin-left: 6px;
+    }
+
+    .plan-trial {
+      display: block;
+      font-size: 12px;
+      color: #4ade80;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    .plan-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin: 18px 0;
+    }
+
+    .plan-features {
+      list-style: none;
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .plan-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .plan-features li::before {
+      content: "✓";
+      color: #FF8A65;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .cta-btn {
+      display: block;
+      width: 100%;
+      margin-top: 22px;
+      padding: 14px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 800;
+      text-align: center;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .cta-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .cta-primary {
+      background: linear-gradient(135deg, #FF5722, #E53935);
+      color: white;
+    }
+
+    .cta-secondary {
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* ── App Store note ── */
+    .appstore-note {
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      margin-top: 14px;
+    }
+
+    /* ── Free tier card ── */
+    .free-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 56px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .free-card-icon {
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+
+    .free-card-text h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 3px;
+    }
+
+    .free-card-text p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── Feature table ── */
+    .section-label {
+      text-align: center;
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .section-sub {
+      text-align: center;
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 28px;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 56px;
+      font-size: 14px;
+    }
+
+    .compare-table thead tr {
+      background: #17171f;
+    }
+
+    .compare-table th {
+      padding: 14px 18px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .compare-table th:first-child { text-align: left; }
+    .compare-table th.col-premium { color: #FF8A65; }
+
+    .compare-table td {
+      padding: 13px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.7);
+      vertical-align: middle;
+    }
+
+    .compare-table td:not(:first-child) { text-align: center; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+
+    .check { color: #4ade80; font-size: 16px; }
+    .cross { color: rgba(255,255,255,0.18); font-size: 16px; }
+    .ad-unlock { font-size: 11px; color: #FF8A65; font-weight: 600; }
+
+    .category-row td {
+      background: rgba(255,87,34,0.06) !important;
+      color: #FF8A65;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 8px 18px;
+    }
+
+    /* ── FAQ ── */
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 18px 0;
+    }
+
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-q {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .faq-a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* ── Bottom CTA ── */
+    .bottom-cta {
+      background: linear-gradient(135deg, rgba(255,87,34,0.1), rgba(229,57,53,0.06));
+      border: 1px solid rgba(255,87,34,0.2);
+      border-radius: 20px;
+      padding: 36px 24px;
+      text-align: center;
+      margin-top: 48px;
+    }
+
+    .bottom-cta h2 {
+      font-size: 22px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .bottom-cta p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 22px;
+    }
+
+    .appstore-btn {
+      display: inline-block;
+      background: #ffffff;
+      color: #000000;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 13px 30px;
+      border-radius: 30px;
+      transition: opacity 0.2s;
+    }
+
+    .appstore-btn:hover { opacity: 0.88; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    footer a { color: rgba(255,255,255,0.35); margin: 0 8px; }
+    footer a:hover { color: #FF8A65; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <div class="logo-icon">S</div>
+      <span class="logo-name">Stryde</span>
+    </div>
+    <h1>Simple, honest pricing.</h1>
+    <p>Start free. Upgrade when you're ready. Cancel anytime.</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Privacy Policy</a>
+    <a href="pricing.html" class="active">Pricing</a>
+  </nav>
+
+  <div class="container">
+
+    <!-- Trial badge -->
+    <div class="trial-badge-wrap">
+      <div class="trial-badge">⭐ Annual plan includes a 7-day free trial</div>
+    </div>
+
+    <!-- Plan cards -->
+    <div class="plans">
+
+      <!-- Annual (recommended) -->
+      <div class="plan-card recommended">
+        <div class="recommended-tag">BEST VALUE</div>
+        <div class="plan-name">Annual</div>
+        <div class="plan-price"><sup>$</sup>39<span style="font-size:24px;font-weight:700">.99</span></div>
+        <div class="plan-period">per year</div>
+        <span class="plan-per-month">$3.33 / month</span>
+        <span class="plan-save">Save 33%</span>
+        <span class="plan-trial">✓ 7-day free trial included</span>
+        <hr class="plan-divider" />
+        <ul class="plan-features">
+          <li>Unlimited AI Fitness Coach</li>
+          <li>Full body analytics &amp; trends</li>
+          <li>Unlimited workout history</li>
+          <li>BMI-based food recommendations</li>
+          <li>Weekly leaderboard</li>
+          <li>No ads</li>
+        </ul>
+        <a href="https://apps.apple.com" class="cta-btn cta-primary">Start Free Trial</a>
+      </div>
+
+      <!-- Monthly -->
+      <div class="plan-card">
+        <div class="plan-name">Monthly</div>
+        <div class="plan-price"><sup>$</sup>4<span style="font-size:24px;font-weight:700">.99</span></div>
+        <div class="plan-period">per month</div>
+        <hr class="plan-divider" />
+        <ul class="plan-features">
+          <li>Unlimited AI Fitness Coach</li>
+          <li>Full body analytics &amp; trends</li>
+          <li>Unlimited workout history</li>
+          <li>BMI-based food recommendations</li>
+          <li>Weekly leaderboard</li>
+          <li>No ads</li>
+        </ul>
+        <a href="https://apps.apple.com" class="cta-btn cta-secondary">Get Monthly</a>
+      </div>
+
+    </div>
+
+    <!-- Free tier note -->
+    <div class="free-card">
+      <div class="free-card-icon">🆓</div>
+      <div class="free-card-text">
+        <h3>Always free, no credit card needed</h3>
+        <p>Workout tracking, nutrition logging, global food database, Ramadan mode, water tracker, and step counter — all free, forever. Watch a short ad to unlock a free AI Coach question anytime.</p>
+      </div>
+    </div>
+
+    <!-- Feature comparison -->
+    <div class="section-label">What's included</div>
+    <div class="section-sub">Everything you need to build a real fitness habit.</div>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Free</th>
+          <th class="col-premium">Premium</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="category-row"><td colspan="3">Nutrition</td></tr>
+        <tr><td>Global food database (190+ cuisines)</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>Calorie &amp; macro tracker</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>Barcode scanner</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>BMI-based food recommendations</td><td><span class="cross">✕</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>Water intake tracker</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+
+        <tr class="category-row"><td colspan="3">Workouts</td></tr>
+        <tr><td>Workout tracking &amp; rest timer</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>Exercise tutorial videos</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>Workout history</td><td>Last 10</td><td><span class="check">Unlimited</span></td></tr>
+        <tr><td>Strength progress charts</td><td><span class="cross">✕</span></td><td><span class="check">✓</span></td></tr>
+
+        <tr class="category-row"><td colspan="3">Progress &amp; Analytics</td></tr>
+        <tr><td>Step counter (Apple Health sync)</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>Weight &amp; body measurement tracker</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>Full analytics &amp; trends</td><td><span class="cross">✕</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>Weekly leaderboard</td><td><span class="cross">✕</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>BMI tracker</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+
+        <tr class="category-row"><td colspan="3">AI Coach</td></tr>
+        <tr><td>AI Fitness Coach questions</td><td><span class="ad-unlock">Watch ad · 1 free</span></td><td><span class="check">Unlimited</span></td></tr>
+        <tr><td>Personalised workout plans</td><td><span class="cross">✕</span></td><td><span class="check">✓</span></td></tr>
+
+        <tr class="category-row"><td colspan="3">Other</td></tr>
+        <tr><td>Ramadan mode &amp; Suhoor/Iftar timers</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>Tasbih counter</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>Ads</td><td>Optional rewarded</td><td><span class="check">None</span></td></tr>
+      </tbody>
+    </table>
+
+    <!-- FAQ -->
+    <div class="section-label">FAQ</div>
+    <div class="section-sub" style="margin-bottom:20px">Common questions about billing.</div>
+
+    <div class="faq-item">
+      <div class="faq-q">Is there a free trial?</div>
+      <div class="faq-a">Yes — the Annual plan includes a 7-day free trial. You won't be charged until the trial ends, and you can cancel before then at no cost.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How do I cancel?</div>
+      <div class="faq-a">Subscriptions are managed entirely by Apple. Go to <strong>Settings → [Your Name] → Subscriptions</strong> on your iPhone and cancel from there. Your premium access continues until the end of the billing period.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can I switch from monthly to annual?</div>
+      <div class="faq-a">Yes. Cancel your monthly plan and subscribe to the annual plan. Apple will prorate any unused time.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">My payment isn't going through — what should I do?</div>
+      <div class="faq-a">If you're in Bangladesh, your debit card may have international online payments disabled by default. Contact your bank (Dutch-Bangla, BRAC, City Bank, etc.) to enable it, or use an Apple App Store Gift Card as an alternative. You can also email us and we'll help.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">I already subscribed — why can't I access premium features?</div>
+      <div class="faq-a">Open Stryde → Profile → Restore Purchases. This re-links your App Store purchase to your account instantly and for free.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do prices vary by country?</div>
+      <div class="faq-a">Yes. Apple adjusts prices based on your local App Store region and currency. The prices shown here are in USD. Your local price may differ.</div>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="bottom-cta">
+      <h2>Ready to start?</h2>
+      <p>Download Stryde free. Upgrade to Premium in-app whenever you're ready.</p>
+      <a class="appstore-btn" href="https://apps.apple.com">
+        ⬇ Download on the App Store
+      </a>
+    </div>
+
+  </div>
+
+  <footer>
+    &copy; 2026 Stryde. All rights reserved.
+    <br style="margin-bottom: 8px" />
+    <a href="index.html">Privacy Policy</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="mailto:marufprodhan463@gmail.com">Contact</a>
+  </footer>
+
+</body>
+</html>
